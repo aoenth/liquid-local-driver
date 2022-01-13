@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.5
 import PackageDescription
 
 let package = Package(
@@ -11,7 +11,7 @@ let package = Package(
         .library(name: "LiquidLocalDriver", targets: ["LiquidLocalDriver"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/binarybirds/liquid-kit.git", from: "1.2.0"),
+        .package(url: "https://github.com/binarybirds/liquid-kit.git", from: "1.3.2"),
     ],
     targets: [
         .target(name: "LiquidLocalDriver", dependencies: [
