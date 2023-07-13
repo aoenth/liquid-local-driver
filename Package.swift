@@ -10,7 +10,7 @@ let package = Package(
         .library(name: "LiquidLocalDriver", targets: ["LiquidLocalDriver"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/binarybirds/liquid-kit.git", from: "1.3.2"),
+        .package(url: "https://github.com/aoenth/liquid-kit.git", branch: "main"),
     ],
     targets: [
         .target(name: "LiquidLocalDriver", dependencies: [
