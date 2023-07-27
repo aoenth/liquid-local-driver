@@ -28,8 +28,8 @@ struct LiquidLocalStorage: FileStorage {
         URL(fileURLWithPath: configuration.publicPath).appendingPathComponent(configuration.workDirectory)
     }
     
-    private var baseUrl: URL {
-        URL(string: configuration.publicUrl)!.appendingPathComponent(configuration.workDirectory)
+    private var baseURL: URL {
+        URL(string: configuration.publicURL)!.appendingPathComponent(configuration.workDirectory)
     }
 
     /// creates the entire directory structure with the necessary posix permissions
@@ -40,19 +40,18 @@ struct LiquidLocalStorage: FileStorage {
     // MARK: - api
 
     func resolve(key: String) -> String {
-        baseUrl.appendingPathComponent(key).absoluteString
+        baseURL.appendingPathComponent(key).absoluteString
     }
 
     func upload(key: String, data: Data) async throws -> String {
-        let fileUrl = basePath.appendingPathComponent(key)
-        let location = fileUrl.deletingLastPathComponent()
+        let fileURL = basePath.appendingPathComponent(key)
+        let location = fileURL.deletingLastPathComponent()
         try createDir(at: location)
 
-        var buffer = ByteBufferAllocator().buffer(capacity: data.count)
-        buffer.writeBytes(data)
+        let buffer = ByteBuffer(bytes: data)
 
-        return try await fileio.openFile(path: fileUrl.path, mode: .write, flags: .allowFileCreation(posixMode: posixMode), eventLoop: context.eventLoop)
-        .flatMap { handle in
+        return try await fileio.openFile(path: fileURL.path, mode: .write, flags: .allowFileCreation(posixMode: posixMode), eventLoop: context.eventLoop)
+        .flatMap {  handle in
             fileio.write(fileHandle: handle, buffer: buffer, eventLoop: context.eventLoop).flatMapThrowing { _ in
                 try handle.close()
                 return resolve(key: key)

@@ -8,7 +8,7 @@
 struct LiquidLocalStorageConfiguration: FileStorageConfiguration {
     
     /// The public base URL used to resolve file keys (e.g. http://localhost/)
-    let publicUrl: String
+    let publicURL: String
     
     /// The path of the public asset storage on the server (e.g. /var/www/localhost/public/)
     let publicPath: String

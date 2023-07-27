@@ -14,7 +14,7 @@ final class LiquidLocalDriverTests: XCTestCase {
         let fileio = NonBlockingFileIO(threadPool: pool)
 
         let storages = FileStorages(fileio: fileio)
-        storages.use(.local(publicUrl: "http://localhost/", publicPath: baseUrl, workDirectory: "assets"), as: .local)
+        storages.use(.local(publicURL: "http://localhost/", publicPath: baseUrl, workDirectory: "assets"), as: .local)
         return storages.fileStorage(.local, logger: .init(label: "[test-logger]"), on: elg.next())!
     }
     
